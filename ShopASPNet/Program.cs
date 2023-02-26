@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ShopASPNet.Data;
 using ShopASPNet.Models.UserModels;
@@ -13,8 +14,19 @@ builder.Services.AddDbContext<ShopDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<AppUser>(options => {
-    options.SignIn.RequireConfirmedAccount = true;
+    // options.SignIn.RequireConfirmedAccount = true;
 }).AddEntityFrameworkStores<ShopDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.Cookie.Name = "ShopCookie";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.LoginPath = "/Account/Login";
+    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+    options.SlidingExpiration = true;
+});
 
 builder.Services.AddControllersWithViews();
 

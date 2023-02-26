@@ -11,7 +11,7 @@ using ShopASPNet.Data;
 namespace ShopASPNet.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230225195944_Init")]
+    [Migration("20230226133650_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -67,70 +67,6 @@ namespace ShopASPNet.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -216,6 +152,76 @@ namespace ShopASPNet.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ShopASPNet.Models.UserModels.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -227,7 +233,7 @@ namespace ShopASPNet.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ShopASPNet.Models.UserModels.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -236,7 +242,7 @@ namespace ShopASPNet.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ShopASPNet.Models.UserModels.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -251,7 +257,7 @@ namespace ShopASPNet.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ShopASPNet.Models.UserModels.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -260,7 +266,7 @@ namespace ShopASPNet.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ShopASPNet.Models.UserModels.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

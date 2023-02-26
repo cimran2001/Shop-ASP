@@ -1,0 +1,55 @@
+@using ShopASPNet.Models.Requests;
+@model UserSignUpRequest
+
+@{
+    ViewData["Title"] = "Sign up";
+    Layout = "_Layout";
+}
+
+<h2>Sign up</h2>
+
+@if (TempData["Error"] is not null) {
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"]</span>
+    </div>
+}
+
+<form method="post" asp-action="SignUp">
+    <div class="mb-3">
+        <label for="first-name" class="form-label">First Name: </label>
+        <input id="first-name" placeholder="First Name" class="form-control"
+               asp-for="FirstName"/>
+    </div>
+    
+    <div class="mb-3">
+        <label for="last-name" class="form-label">Last Name: </label>
+        <input id="last-name" placeholder="Last Name" class="form-control"
+               asp-for="LastName"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username: </label>
+        <input id="username" placeholder="Username" class="form-control"
+               asp-for="Username"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password: </label>
+        <input id="password" placeholder="Password" class="form-control"
+               aria-describedby="case-sensitive-1" type="password"
+               asp-for="Password"/>
+        <small id="case-sensitive-1" class="form-text text-muted">Case sensitive</small>
+    </div>
+
+    <div class="mb-3">
+        <label for="repeat-password" class="form-label">Repeat password: </label>
+        <input id="repeat-password" placeholder="Repeat password" class="form-control"
+               aria-describedby="case-sensitive-2" type="password"
+               asp-for="RepeatPassword"/>
+        <small id="case-sensitive-2" class="form-text text-muted">Case sensitive</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sign up</button>
+</form>
+
+

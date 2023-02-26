@@ -1,0 +1,41 @@
+@using ShopASPNet.Models.Requests;
+@model UserLogInRequest
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "_Layout";
+}
+
+<h2>Log in</h2>
+
+@if (TempData["Error"] is not null) {
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"]</span>
+    </div>
+}
+
+<form method="post" asp-action="LogIn">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username: </label>
+        <input id="username" placeholder="Username" class="form-control"
+               asp-for="Username" />
+    </div>
+    
+    <div class="mb-3">
+        <label for="password" class="form-label">Password: </label>
+        <input id="password" placeholder="Password" class="form-control" 
+               aria-describedby="case-sensitive" type="password" 
+               asp-for="Password"/>
+        <small id="case-sensitive" class="form-text text-muted">Case sensitive</small>
+    </div>
+    
+    <div class="mb-3">
+        <input type="checkbox" class="form-check-input" id="remember me"
+               asp-for="RememberMe">
+        <label class="form-check-label" for="remember me">Remember me</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Log in</button>
+</form>
+
+
