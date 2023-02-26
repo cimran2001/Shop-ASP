@@ -1,15 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopASPNet.Models.Requests;
 using ShopASPNet.Models.UserModels;
 
 namespace ShopASPNet.Controllers; 
 
-public class AccountController : Controller {
+public class UserController : Controller {
     private readonly SignInManager<AppUser> _signInManager;
     private readonly UserManager<AppUser> _userManager;
     
-    public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) {
+    public UserController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) {
         _signInManager = signInManager;
         _userManager = userManager;
     }
@@ -42,7 +43,12 @@ public class AccountController : Controller {
     
     [HttpPost]
     public async Task<IActionResult> SignUp(UserSignUpRequest request) {
-        var user = new AppUser() {
+        if (!ModelState.IsValid) {
+            TempData["Error"] = "Something went wrong.";
+            return View();
+        }
+
+        var user = new AppUser {
             UserName = request.Username,
             FirstName = request.FirstName,
             LastName = request.LastName,

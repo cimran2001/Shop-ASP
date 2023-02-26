@@ -1,0 +1,32 @@
+@using ShopASPNet.Models.Requests
+@model ItemRequest
+
+@{
+    ViewData["Title"] = "Add item";
+    Layout = "_Layout";
+}
+
+<h2>Add item</h2>
+
+<form method="post" asp-action="Add">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name: </label>
+        <input id="name" placeholder="Name" class="form-control"
+               asp-for="Name" />
+    </div>
+    
+    <div class="mb-3">
+        <label for="description" class="form-label">Description: </label>
+        <textarea id="description" placeholder="Description" class="form-control" 
+               asp-for="Description"></textarea>
+    </div>
+    
+    <div class="mb-3">
+        <label for="price" class="form-label">Price: </label>
+        <input id="price" placeholder="Price" class="form-control" 
+               type="number" min="1" step="any" 
+               asp-for="Price" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
