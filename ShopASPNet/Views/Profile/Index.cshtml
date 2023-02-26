@@ -1,0 +1,35 @@
+@using ShopASPNet.Models.UserModels
+@model AppUser
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_Layout";
+}
+
+<h2>Profile</h2>
+
+<div class="mb-3">
+    <label for="id" class="form-label">Id: </label>
+    <input id="id" placeholder="Id" class="form-control"
+           asp-for="Id" readonly/>
+</div>
+
+<div class="mb-3">
+    <label for="username" class="form-label">First Name: </label>
+    <input id="username" placeholder="Username" class="form-control"
+           asp-for="UserName" readonly/>
+</div>
+
+<div class="mb-3">
+    <label for="first-name" class="form-label">First Name: </label>
+    <input id="first-name" placeholder="First Name" class="form-control"
+           asp-for="FirstName" readonly />
+</div>
+
+<div class="mb-3">
+    <label for="last-name" class="form-label">Last Name: </label>
+    <input id="last-name" placeholder="Last Name" class="form-control"
+           asp-for="LastName" readonly/>
+</div>
+
+<a class="btn btn-primary" asp-action="Edit">Edit</a>
