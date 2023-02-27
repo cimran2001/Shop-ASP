@@ -7,6 +7,9 @@ using ShopASPNet.Models.Requests;
 
 namespace ShopASPNet.Controllers;
 
+[Authorize]
+[Controller]
+[Route("[controller]")]
 public class ItemsController : Controller {
     private readonly IItemRepository _itemRepository;
     
@@ -14,22 +17,24 @@ public class ItemsController : Controller {
         _itemRepository = itemRepository;
     }
     
+    [AllowAnonymous]
     [HttpGet]
-    [Route("[controller]")]
+    [Route("")]
+    [Route(nameof(Index))]
     public async Task<IActionResult> Index() {
         var items = await _itemRepository.GetAllAsync();
         return View(items);
     }
     
+    [AllowAnonymous]
     [HttpGet]
-    [Authorize]
+    [Route(nameof(Add))]
     public IActionResult Add() {
         return View();
     }
     
     [HttpPost]
-    [Route("[controller]/Add")]
-    [Authorize]
+    [Route(nameof(Add))]
     public async Task<IActionResult> Add(ItemRequest itemRequest) {
         var creationDate = DateTime.Now;
         
@@ -49,14 +54,14 @@ public class ItemsController : Controller {
     }
 
     [HttpGet]
-    [Authorize]
+    [Route(nameof(Edit))]
     public async Task<IActionResult> Edit(int id) {
         var item = await _itemRepository.GetByIdAsync(id);
         return View(item);
     }
 
     [HttpPost]
-    [Authorize]
+    [Route(nameof(Edit))]
     public async Task<IActionResult> Edit(Item item) {
         item.LastEdited = DateTime.Now;
         await _itemRepository.UpdateAsync(item);
@@ -64,13 +69,15 @@ public class ItemsController : Controller {
     }
     
     [HttpGet]
-    [Authorize]
+    [Route(nameof(Delete))]
     public async Task<IActionResult> Delete(int id) {
         await _itemRepository.RemoveByIdAsync(id);
         return RedirectToAction("Index");
     }
 
+    [AllowAnonymous]
     [HttpGet]
+    [Route(nameof(Details))]
     public async Task<IActionResult> Details(int id) {
         var item = await _itemRepository.GetByIdAsync(id);
         return View(item);

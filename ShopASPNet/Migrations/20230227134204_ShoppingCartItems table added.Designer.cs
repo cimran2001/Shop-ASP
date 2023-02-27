@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopASPNet.Data;
 
@@ -10,9 +11,11 @@ using ShopASPNet.Data;
 namespace ShopASPNet.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227134204_ShoppingCartItems table added")]
+    partial class ShoppingCartItemstableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -340,8 +343,7 @@ namespace ShopASPNet.Migrations
                 {
                     b.HasOne("ShopASPNet.Models.Items.Item", "Item")
                         .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ItemId");
 
                     b.HasOne("ShopASPNet.Models.UserModels.ShoppingCart", null)
                         .WithMany("ShoppingCartItems")

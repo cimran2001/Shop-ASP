@@ -1,0 +1,45 @@
+@using ShopASPNet.Models.UserModels
+@using System.Globalization
+@model ShoppingCart
+
+@{
+    ViewData["Title"] = "My Cart";
+    Layout = "_Layout";
+}
+
+<h2>My cart</h2>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        var i = 1;
+        @foreach (var item in Model.ShoppingCartItems) {
+            <tr>
+                <th scope="row">@i.ToString()</th>
+                <td>@item.Item.Name</td>
+                <td>@item.Item.Price.ToString(CultureInfo.InvariantCulture)</td>
+                <td>@item.Quantity.ToString()</td>
+            </tr>
+            ++i;
+        }
+    }
+    </tbody>
+</table>
+
+<div class="d-flex">
+    <div class="p-2 align-self-center">
+        <h5>Total price:
+                @Model.ShoppingCartItems.Select(sci => sci.Item.Price * sci.Quantity).Sum().ToString()</h5>    
+    </div>
+    <div class="p-2">
+        <a class="btn btn-primary">Buy</a>
+    </div>
+</div>

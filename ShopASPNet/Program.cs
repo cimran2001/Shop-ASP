@@ -21,11 +21,11 @@ builder.Services.AddDefaultIdentity<AppUser>(options => {
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.AccessDeniedPath = "/User/AccessDenied";
     options.Cookie.Name = "ShopCookie";
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    options.LoginPath = "/Account/Login";
+    options.LoginPath = "/User/Login";
     options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
     options.SlidingExpiration = true;
 });
@@ -34,6 +34,7 @@ builder.Services.AddControllersWithViews();
 
 // Dependency Injection
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
 var app = builder.Build();
 

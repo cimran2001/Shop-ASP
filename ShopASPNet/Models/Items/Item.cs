@@ -11,5 +11,8 @@ public class Item {
     public decimal Price { get; set; }
     public DateTime Created { get; set; }
     public DateTime LastEdited { get; set; }
+    
+    public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
+
     // public string ImagePath { get; set; }
 }

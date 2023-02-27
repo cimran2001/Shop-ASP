@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopASPNet.Data;
 
@@ -10,9 +11,11 @@ using ShopASPNet.Data;
 namespace ShopASPNet.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227071809_Shopping cart table added")]
+    partial class Shoppingcarttableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -196,7 +199,7 @@ namespace ShopASPNet.Migrations
 
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.ToTable("ShoppingCartItem");
                 });
 
             modelBuilder.Entity("ShopASPNet.Models.UserModels.AppUser", b =>
@@ -339,9 +342,8 @@ namespace ShopASPNet.Migrations
             modelBuilder.Entity("ShopASPNet.Models.Items.ShoppingCartItem", b =>
                 {
                     b.HasOne("ShopASPNet.Models.Items.Item", "Item")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("ItemId");
 
                     b.HasOne("ShopASPNet.Models.UserModels.ShoppingCart", null)
                         .WithMany("ShoppingCartItems")
@@ -357,11 +359,6 @@ namespace ShopASPNet.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ShopASPNet.Models.Items.Item", b =>
-                {
-                    b.Navigation("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("ShopASPNet.Models.UserModels.ShoppingCart", b =>

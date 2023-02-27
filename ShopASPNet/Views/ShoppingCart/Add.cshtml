@@ -1,0 +1,26 @@
+@using ShopASPNet.Models.Requests
+@model ItemToCartRequest
+
+@{
+    ViewData["Title"] = "Add an item";
+    Layout = "_Layout";
+}
+
+<h2>Add item to cart.</h2>
+
+
+<form method="post" asp-action="Add">
+    <input asp-for="ItemId" id="id" hidden readonly/>
+    <input asp-for="CartId" id="itemId" hidden readonly/>
+
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity: </label>
+        <input id="quantity" placeholder="Quantity" class="form-control"
+               asp-for="Quantity"/>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a class="btn btn-danger" asp-action="Index">Cancel</a>
+    </div>
+</form>
