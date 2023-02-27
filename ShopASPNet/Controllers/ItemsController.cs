@@ -22,12 +22,14 @@ public class ItemsController : Controller {
     }
     
     [HttpGet]
+    [Authorize]
     public IActionResult Add() {
         return View();
     }
     
     [HttpPost]
     [Route("[controller]/Add")]
+    [Authorize]
     public async Task<IActionResult> Add(ItemRequest itemRequest) {
         var creationDate = DateTime.Now;
         
@@ -54,6 +56,7 @@ public class ItemsController : Controller {
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Edit(Item item) {
         item.LastEdited = DateTime.Now;
         await _itemRepository.UpdateAsync(item);

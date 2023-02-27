@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopASPNet.Data;
 using ShopASPNet.Models.Requests;
-using ShopASPNet.Models.UserModels;
 
 namespace ShopASPNet.Controllers; 
 
+[Authorize]
 public class ProfileController : Controller {
     private readonly ShopDbContext _context;
     
